@@ -21,6 +21,7 @@ namespace TaskbarEmberOverlay
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            AppLogger.Log("App.OnStartup called");
             EnsureInteractiveDesktop();
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
@@ -90,10 +91,11 @@ namespace TaskbarEmberOverlay
             _singleInstanceService = new SingleInstanceService();
             if (!_singleInstanceService.TryAcquire(out bool isFirst) || !isFirst)
             {
-                // Another instance is already running
+                AppLogger.Log("Another instance is already running (Mutex acquired: false). Exiting.");
                 Shutdown(0);
                 return;
             }
+            AppLogger.Log("Acquired single-instance mutex successfully.");
 
             try
             {
@@ -158,6 +160,7 @@ namespace TaskbarEmberOverlay
 
         private void OnTaskbarsUpdated(List<TaskbarBounds> taskbars)
         {
+            AppLogger.Log($"OnTaskbarsUpdated received {taskbars.Count} taskbars.");
             Dispatcher.Invoke(() =>
             {
                 var currentHwnds = new HashSet<IntPtr>(taskbars.Select(t => t.Hwnd));
@@ -168,6 +171,7 @@ namespace TaskbarEmberOverlay
                 {
                     if (_activeOverlays.TryGetValue(h, out var win))
                     {
+                        AppLogger.Log($"Closing overlay for HWND {h}");
                         win.Close();
                         _activeOverlays.Remove(h);
                     }
@@ -176,8 +180,10 @@ namespace TaskbarEmberOverlay
                 // Add or update overlays for active taskbars
                 foreach (var tb in taskbars)
                 {
+                    AppLogger.Log($"Processing taskbar HWND {tb.Hwnd}: visible={tb.IsVisible}, rect={tb.DipRect}");
                     if (!_activeOverlays.TryGetValue(tb.Hwnd, out var win))
                     {
+                        AppLogger.Log($"Creating new OverlayWindow for HWND {tb.Hwnd}");
                         win = new OverlayWindow(_settings);
                         win.SetPaused(_isPaused);
                         _activeOverlays[tb.Hwnd] = win;

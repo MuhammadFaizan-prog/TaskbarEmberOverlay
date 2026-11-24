@@ -37,6 +37,7 @@ namespace TaskbarEmberOverlay
 
             var helper = new WindowInteropHelper(this);
             _hwnd = helper.Handle;
+            AppLogger.Log($"OverlayWindow.OnSourceInitialized: HWND={_hwnd}");
 
             // Apply non-activating, layered, transparent, toolwindow styles
             int exStyle = NativeMethods.GetWindowLongPtr(_hwnd, NativeMethods.GWL_EXSTYLE).ToInt32();
@@ -92,6 +93,8 @@ namespace TaskbarEmberOverlay
         {
             CurrentBounds = bounds;
             _targetTaskbarHwnd = bounds.Hwnd;
+
+            AppLogger.Log($"OverlayWindow.UpdateTaskbarBounds: Hwnd={bounds.Hwnd}, visible={bounds.IsVisible}, rect={bounds.DipRect}");
 
             if (!bounds.IsVisible)
             {

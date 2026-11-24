@@ -87,6 +87,10 @@ namespace TaskbarEmberOverlay.Services
                     results.Add(primaryBounds);
                 }
             }
+            else
+            {
+                AppLogger.Log($"EnumerateTaskbars: Shell_TrayWnd not found (primaryHwnd={primaryHwnd})");
+            }
 
             // 2. Secondary Taskbars: Shell_SecondaryTrayWnd
             IntPtr secHwnd = IntPtr.Zero;
@@ -158,6 +162,7 @@ namespace TaskbarEmberOverlay.Services
             bool isFullscreenCovered = IsFullscreenWindowActiveOnMonitor(hwnd);
 
             bool eligibleToShow = isVisible && !isFullscreenCovered;
+            AppLogger.Log($"EvaluateTaskbar HWND={hwnd}: isVis={isVisible}, fullCover={isFullscreenCovered}, eligible={eligibleToShow}, rect={dipRect}");
 
             return new TaskbarBounds
             {

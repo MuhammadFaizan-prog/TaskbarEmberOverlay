@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ApplicationDefinition Remove="App.xaml" />
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\SideAnimation\*.png" />
     <None Update="Assets\SideAnimation\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

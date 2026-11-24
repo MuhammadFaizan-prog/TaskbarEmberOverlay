@@ -1,0 +1,3 @@
+@echo off
+echo Starting TaskbarEmberOverlay...
+start "" dotnet run --project "%~dp0src\TaskbarEmberOverlay\TaskbarEmberOverlay.csproj" -c Release

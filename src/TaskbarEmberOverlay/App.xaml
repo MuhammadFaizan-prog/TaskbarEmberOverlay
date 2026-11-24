@@ -1,0 +1,8 @@
+﻿<Application x:Class="TaskbarEmberOverlay.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TaskbarEmberOverlay">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

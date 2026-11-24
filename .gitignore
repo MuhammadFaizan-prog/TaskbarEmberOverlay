@@ -1,0 +1,26 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rms/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# Visual Studio / VS Code cache & user preferences
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# Logs & temp files
+*.log
+*.tmp
